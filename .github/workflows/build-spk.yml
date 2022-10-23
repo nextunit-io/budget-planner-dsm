@@ -1,6 +1,8 @@
 name: Budget Planner Build
 run-name: ${{ github.actor }} is building a new spk
+
 on: [push]
+
 jobs:
   Build:
     runs-on: ubuntu-latest
@@ -9,7 +11,7 @@ jobs:
       - name: Checkout Synology Repository
         uses: actions/checkout@v3
         with: 
-          repository: SynologyOpenSource/pkgscripts-ng
+          repository: SynologyOpenSource/pkgscripts-ng@DSM7.1
           path: synology
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -18,3 +20,6 @@ jobs:
       - run: pwd
       - run: ls -la repo
       - run: ls -la synology
+      - run: cd synology && ./EnvDeploy -v 7.1 -p geminilake
+      - run: cd synology && ./PkgCreate.py -v 7.1 -p geminilake -c ../repo
+      
