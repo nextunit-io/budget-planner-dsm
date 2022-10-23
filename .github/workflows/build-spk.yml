@@ -11,8 +11,9 @@ jobs:
       - name: Checkout Synology Repository
         uses: actions/checkout@v3
         with: 
-          repository: SynologyOpenSource/pkgscripts-ng@DSM7.1
+          repository: SynologyOpenSource/pkgscripts-ng
           path: synology
+          ref: DSM7.1
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
@@ -22,4 +23,3 @@ jobs:
       - run: ls -la synology
       - run: cd synology && ./EnvDeploy -v 7.1 -p geminilake
       - run: cd synology && ./PkgCreate.py -v 7.1 -p geminilake -c ../repo
-      
