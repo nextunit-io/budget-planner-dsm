@@ -14,7 +14,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          path: /repo
+          path: repo
       - run: pwd
       - run: ls -la repo
       - run: ls -la synology
