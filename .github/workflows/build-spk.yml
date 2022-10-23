@@ -10,10 +10,11 @@ jobs:
         uses: actions/checkout@v3
         with: 
           repository: SynologyOpenSource/pkgscripts-ng
-          path: ${GITHUB_WORKSPACE}/synology
+          path: synology
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          path: ${GITHUB_WORKSPACE}/repo
+          path: /repo
+      - run: pwd
       - run: ls -la repo
       - run: ls -la synology
