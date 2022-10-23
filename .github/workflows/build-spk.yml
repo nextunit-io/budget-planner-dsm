@@ -8,10 +8,12 @@ jobs:
       - run: echo "Started"
       - name: Checkout Synology Repository
         uses: actions/checkout@v3
-        with: https://github.com/SynologyOpenSource/pkgscripts-ng
-        path: ${GITHUB_WORKSPACE}/synology
+        with: 
+          repository: https://github.com/SynologyOpenSource/pkgscripts-ng
+          path: ${GITHUB_WORKSPACE}/synology
       - name: Checkout Repository
         uses: actions/checkout@v3
-        path: ${GITHUB_WORKSPACE}/repo
+        with:
+          path: ${GITHUB_WORKSPACE}/repo
       - run: ls -la repo
       - run: ls -la synology
