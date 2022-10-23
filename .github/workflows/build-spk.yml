@@ -9,7 +9,7 @@ jobs:
       - name: Checkout Synology Repository
         uses: actions/checkout@v3
         with: 
-          repository: https://github.com/SynologyOpenSource/pkgscripts-ng
+          repository: SynologyOpenSource/pkgscripts-ng
           path: ${GITHUB_WORKSPACE}/synology
       - name: Checkout Repository
         uses: actions/checkout@v3
