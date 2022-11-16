@@ -1,27 +1,32 @@
-import { Payment } from "../database";
+import { Payment, User } from "../database";
 import { Entry } from '../../../models/entry';
 
-async function getPayments(): Promise<Payment[]> {
-    return await Payment.findAll();
-}
-
-async function createPayment(entry: Entry): Promise<Payment> {
-    return await Payment.create({
-        ...entry,
+async function getPayments(userId: number): Promise<Payment[]> {
+    return await Payment.findAll({
+        where: { UserId: userId },
     });
 }
 
-async function getPayment(id: number): Promise<Payment> {
+async function createPayment(userId: number, entry: Entry): Promise<Payment> {
+    const user = await User.findByPk(userId);
+    const payment = await Payment.create({
+        ...entry,
+    });
+    await user.addPayment(payment);
+    return payment;
+}
+
+async function getPayment(userId: number, id: number): Promise<Payment> {
     const payment = await Payment.findByPk(id);
-    if (!payment) {
+    if (!payment || (await payment.getUser()).id !== userId) {
         throw new Error('404');
     }
 
     return payment;
 }
 
-async function deletePayment(id: number): Promise<Payment> {
-    const payment = await getPayment(id);
+async function deletePayment(userId: number, id: number): Promise<Payment> {
+    const payment = await getPayment(userId, id);
     await payment.destroy();
     return payment;
 }

@@ -27,7 +27,25 @@ User.hasMany(Payment);
 
 sequelize.sync();
 
+// TODO: provided default user needs to be connected to the Synology SSO
+// GET SSO SDK from https://<ip>:5001/webman/sso/synoSSO-1.0.0.js
+// Documentation: https://global.download.synology.com/download/Document/Software/DeveloperGuide/Package/SSOServer/All/enu/Synology_SSO_API_Guide.pdf
+const DefaultUser: Promise<User> = new Promise(async (resolve) => {
+    const users = await User.findAll();
+    if (users.length === 0) {
+        resolve(User.create({
+            firstname: 'Testfirstname',
+            lastname: 'testlastname',
+            createdAt: new Date(),
+            active: true,
+        }));
+    } else {
+        resolve(users[0]);
+    }
+});
+
+
 export {
     sequelize as Database,
-    Income, Payment, User
+    Income, Payment, User, DefaultUser,
 }

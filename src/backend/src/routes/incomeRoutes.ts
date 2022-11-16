@@ -4,28 +4,28 @@ import controller from '../controllers/income';
 const router = Router();
 
 router.route('/')
-    .get((req, res, next) => {
-        controller.getIncomes().then(incomes => {
+    .get((req: Request<{ userId: number }>, res, next) => {
+        controller.getIncomes(req.params.userId).then(incomes => {
             res.status(200).send(incomes);
-        }).finally(next);;
+        }).finally(next);
     })
-    .post((req, res, next) => {
-        controller.createIncome(req.body).then((income) => {
+    .post((req: Request<{ userId: number }>, res, next) => {
+        controller.createIncome(req.params.userId, req.body).then((income) => {
             res.status(201).location(`${req.baseUrl}/${income.id}`);
         }).finally(next);
     });
 
 router.route('/:id(\\d+)')
-    .get((req: Request<{ id: number }>, res, next) => {
-        controller.deleteIncome(req.params.id)
+    .get((req: Request<{ userId: number, id: number }>, res, next) => {
+        controller.deleteIncome(req.params.userId, req.params.id)
             .then((income) => {
                 res.status(200).send(income);
             })
             .catch(() => res.status(404))
             .finally(next);
     })
-    .delete((req: Request<{ id: number }>, res, next) => {
-        controller.deleteIncome(req.params.id)
+    .delete((req: Request<{ userId: number, id: number }>, res, next) => {
+        controller.deleteIncome(req.params.userId, req.params.id)
             .then((income) => {
                 res.status(200).send(income);
             })
