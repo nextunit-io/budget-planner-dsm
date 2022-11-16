@@ -1,33 +1,33 @@
 import { Request, Router } from "express";
-import controller from '../controllers/income';
+import controller from '../controllers/payment';
 
 const router = Router();
 
 router.route('/')
     .get((req, res, next) => {
-        controller.getIncomes().then(incomes => {
-            res.status(200).send(incomes);
+        controller.getPayments().then(payments => {
+            res.status(200).send(payments);
         }).finally(next);;
     })
     .post((req, res, next) => {
-        controller.createIncome(req.body).then((income) => {
-            res.status(201).location(`${req.baseUrl}/${income.id}`);
+        controller.createPayment(req.body).then((payment) => {
+            res.status(201).location(`${req.baseUrl}/${payment.id}`);
         }).finally(next);
     });
 
 router.route('/:id(\\d+)')
     .get((req: Request<{ id: number }>, res, next) => {
-        controller.deleteIncome(req.params.id)
-            .then((income) => {
-                res.status(200).send(income);
+        controller.deletePayment(req.params.id)
+            .then((payment) => {
+                res.status(200).send(payment);
             })
             .catch(() => res.status(404))
             .finally(next);
     })
     .delete((req: Request<{ id: number }>, res, next) => {
-        controller.deleteIncome(req.params.id)
-            .then((income) => {
-                res.status(200).send(income);
+        controller.deletePayment(req.params.id)
+            .then((payment) => {
+                res.status(200).send(payment);
             })
             .catch(() => res.status(404))
             .finally(next);

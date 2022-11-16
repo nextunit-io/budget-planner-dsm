@@ -1,7 +1,7 @@
 import { Association, BelongsToCreateAssociationMixin, BelongsToGetAssociationMixin, BelongsToSetAssociationMixin, DataTypes, Model, Sequelize } from "sequelize";
 import User from "./user";
 
-export default class Income extends Model {
+export default class Payment extends Model {
     // Auto-generated
     id!: number;
 
@@ -17,7 +17,7 @@ export default class Income extends Model {
     public readonly User!: User;
 
     public static associations: {
-        User: Association<Income, User>;
+        User: Association<Payment, User>;
     }
 
     public static initialize(sequelize: Sequelize) {
@@ -26,6 +26,6 @@ export default class Income extends Model {
             amount: DataTypes.NUMBER,
             percentage: DataTypes.DECIMAL,
             date: DataTypes.DATEONLY,
-        }, { sequelize });
+        }, { sequelize })
     }
 }

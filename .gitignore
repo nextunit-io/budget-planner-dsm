@@ -2,3 +2,4 @@
 node_modules
 dist
 db.sqlite
+src/backend/src/frontend
